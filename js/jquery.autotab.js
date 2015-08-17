@@ -579,6 +579,11 @@
         }).on('keypress.autotab', function (e) {
             var defaults = getSettings(this),
                 keyCode = e.which || e.keyCode;
+                
+            if ($(this).prop('readonly')) {
+                $(this).trigger('autotab-next', defaults);
+                return false;
+            }
 
             // e.charCode == 0 indicates a special key has been pressed, which only Firefox triggers
             if (!defaults || defaults.disabled || (settings.firefox && e.charCode === 0) || e.ctrlKey || e.altKey || keyCode == 13 || this.disabled) {
